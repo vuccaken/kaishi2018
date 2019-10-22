@@ -1,0 +1,130 @@
+%
+%
+%   NAKAYAMA
+%
+%
+
+% 11/14 14:10 nakayama が編集しました。
+% 11/24 02:40 完成しました。
+% 11/24 08:30 マジで完成しました。
+% 2018/11/26 第2版
+% 2018/11/30 第2版
+
+\documentclass[11pt,b5paper,papersize,dvipdfmx]{jsbook}
+
+\usepackage{vuccaken}
+\usepackage{vuccaken2018}
+\usepackage{12nkym}
+% \allowdisplaybreaks
+% --------------------------------------
+\begin{document}
+% \tableofcontents % 目次出力
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\kaishititle{ゼータランドシガ}{物理科学科3回生}{中山敦貴}
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+\ReadTeXFile{12nkym01-hajimeni}
+\ReadTeXFile{12nkym11-section-1}
+\ReadTeXFile{12nkym12-section-2}
+\ReadTeXFile{12nkym13-section-3}
+\ReadTeXFile{12nkym14-section-4}
+
+
+% ----------------
+\section*{おわりに}
+今回配布する会誌では予算の都合上、図などがモノクロ印刷となってしまい大変見にくいものであるかと思いますが、うちの研究会のホームページ\url{http://rp2017xy.starfree.jp/}に会誌をPDFでアップロードする予定なので、フルカラーなキレイな図を見たい方は是非そちらも確認していただきたい。以上、お疲れ様でした。
+
+\vspace{4zw}
+\begin{center}
+  \verb|T H E  E N D|\\
+  \verb| |\\
+  \verb|T H A N K  Y O U  F O R  R E A D I N G|
+\end{center}
+
+
+% ----------------
+% \vspace{3zw}
+% Now loading...
+
+\clearpage
+
+% 参考文献
+\sanko
+\subsubsection*{書籍}
+\begin{enumerate}
+  % \item 著者, 本やページの名前, (URL), 出版社, 出版年.
+  % \item (複数ある場合は追加)
+  \item 小山信也; 素数とゼータ関数; 共立出版社; 2016.
+  \item 森正武, 杉原正顯; 複素関数論; 岩波書店; 2003.
+  \item 野村隆昭; 複素関数論講義; 共立出版; 2016.
+  \item 福山秀敏, 小形正男; 基礎物理学シリーズ3 物理数学I; 朝倉書店; 2015.
+  \item ハロルド・Ｍ・エドワーズ 著, 鈴木治郎 訳; 明解 ゼータ関数とリーマン予想; 講談社; 2012.
+\end{enumerate}
+
+\subsubsection*{Webサイト}
+\begin{enumerate}
+  \item 全ての素数の無限積が$4\pi^2$であることの数学的な証明; 2016/04/04.\\
+    \url{https://www.youtube.com/}\\ \quad\url{playlist?list=PL006ccJyFqlHtQQhonFlgactqdunSQ1OW}
+  \item のんびり固体物理学; ゼータ関数の導関数の特殊値$\zeta'(0)$の導出; 2017/02/12.\\
+    \url{http://solidstatephysics.blog.fc2.com/blog-entry-24.html}
+  \item INTEGERS; 階乗とガンマ関数; 2015/11/30. \\
+    \url{http://integers.hatenablog.com/entry/2015/11/30/020829}
+  \item 倭算数理研究所; ベルヌーイ数; 2013/08/23. \\
+    \url{https://wasan.hatenablog.com/entry/2013/08/23/040806}
+  \item tsujimotter; リーマンの素数公式を可視化する; 2014/06/29.\\
+    \url{http://tsujimotter.hatenablog.com/entry/2014/06/29/002109}
+  \item LMFDB; Zeros of $\zeta(s)$; 2018/08/16.\\
+    \url{http://www.lmfdb.org/zeros/zeta/}
+  \item INTEGERS; リーマンゼータ関数の級数表示による解析接続; 2016/08/16.\\
+    \url{http://integers.hatenablog.com/entry/2016/08/16/133319}
+  \item tsujimotter; リーマンのゼータ関数で遊び倒そう (Ruby編); 2015/02/11.\\
+    \url{http://tsujimotter.hatenablog.com/entry/riemann-zeta-function}
+\end{enumerate}
+
+
+
+
+% 以下ゴミ
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\if0
+%
+\subsection{邪魔}
+
+\begin{thm}{解析接続（ゼータ関数）}
+  以下のようにゼータ関数を解析接続することで、ゼータ関数の定義域を$s \in \{ s \in \mathbb{C} \,|\, \mathrm{Re}(s) > 1 \} $から$s \in \{ s \in \mathbb{C} \,|\, \mathrm{Re}(s) \ne 1 \}$に拡張できる：
+  \begin{align}
+    \zeta(s) &:= \frac{1}{1 - 2^{1-s}} \sum_{m=1}^\infty 2^{-m} \sum_{j=1}^m (-1)^{j-1} \binom{m-1}{j-1}j^{-s}.
+  \end{align}
+\end{thm}
+
+$s$が整数のとき、もっと簡単に書ける。
+\begin{thm}{解析接続（ゼータ関数 整数ver.）}
+  $n \in \mathbb{Z}_{\ge 0}$のとき
+  \begin{align}
+    \zeta(2n) &= (-1)^{n+1} \frac{(2\pi)^{2n} B_{2n}}{2\cdot (2n)!}, \label{eq:zeta+}\\
+    \zeta(-n) &= (-1)^n \frac{B_{n+1}}{n+1}. \label{eq:zeta-}
+  \end{align}
+\end{thm}
+
+\fi
+%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%
+\end{document}
+%
+% お疲れさまです
+%

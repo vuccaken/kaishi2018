@@ -1,0 +1,51 @@
+%
+% THIS FILE IS "00main.tex".
+% MAIN TEX FILE
+%
+
+% 11/14 19:20 nakayama が編集しました。
+% 11/24 19:30 add saijo
+
+\documentclass[11pt,b5paper,papersize,dvipdfmx]{jsbook}
+% papersize: pdfの用紙サイズを変更
+% dvipdfmx: TikZで必要
+% openary: 空白ページ削除（bookクラス）
+
+\usepackage{vuccaken}
+\usepackage{vuccaken2018}
+\usepackage{11nsmr}
+\usepackage{12nkym}
+\usepackage{13honda}
+\usepackage{14kadono}
+\usepackage{15saijo}
+
+
+% --------------------------------------
+\begin{document}
+
+\frontmatter
+\ReadTeXFile{01hyoshi}
+\ReadTeXFile{05kantogon}
+\tableofcontents % 目次出力
+\mainmatter
+
+
+\ReadTeXFile{11nsmr}
+\ReadTeXFile{13honda}
+\ReadTeXFile{15saijo}
+\ReadTeXFile{15saijo2}
+\ReadTeXFile{14kadono}
+\ReadTeXFile{14kadono2}
+\ReadTeXFile{12nkym}
+
+\ReadTeXFile{06hensyukoki}
+\ReadTeXFile{07ura-hyoshi}
+
+
+
+
+
+\end{document}
+%
+% お疲れさまです
+%

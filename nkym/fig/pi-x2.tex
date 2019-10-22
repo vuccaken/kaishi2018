@@ -1,0 +1,52 @@
+\documentclass[10pt,dvipdfmx]{standalone}
+% \documentclass[10pt,dvipdfmx,b5paper,papersize]{jsarticle}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{physics}
+% \usetikzlibrary{positioning}
+
+
+\begin{document}
+
+\begin{tikzpicture}[x=4mm,y=4mm,>=latex]
+% \small % 文字サイズ
+
+% gray zone
+% \fill[fill=gray!30] (2,0) rectangle (5,5.5);
+
+
+
+% 座標系
+\draw[->] (0,0) -- (50.5,0) node[right] {$x$} ; % x軸
+\draw[->] (0,0) -- (0,10.5) node[above] {$\pi(x)$}; % y軸
+% \node(O) at (0,0) [below left]{O}; % 原点
+  
+% \foreach \x in {0,...,19}{
+%   \node at (\x,0) [below] {$\x$};
+% }
+\node(O) at (0,0) [below]{0}; % 0
+
+
+% 素数階段
+\coordinate (bP) at (0,0);
+\coordinate (P) at (0,0);
+\foreach \n in {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,49}{
+  \path (\n,0) +(bP) coordinate (Q);
+  \draw (P) -- ++(Q) -- +(0,1);
+  \path (P) ++(Q) +(0,1) coordinate (P);
+  \coordinate (bP) at (-\n,0);
+  % 飾り
+  \draw[dashed] (P) +(0,-1) -- (\n,0);
+  \node at (\n,0) [below] {$\n$};
+}
+\draw (P) -- +(1,0);
+
+\draw [domain=2:50, samples=50] plot(\x, {\x/ln(\x)} ) node[right]{$y=\dfrac{x}{\log x}$}; 
+
+
+\end{tikzpicture}
+
+
+
+
+\end{document}

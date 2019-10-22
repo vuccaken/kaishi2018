@@ -1,0 +1,47 @@
+%
+%     Honda
+%
+% This file is "vuccaken.sty"
+% 2018/11/14 16:00 
+% created by nakayama
+%
+% 2018/11/16 17:00 edited by nkym
+
+
+
+\usepackage{amsmath,amssymb,cases}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{here}
+\usepackage{url}
+\usepackage{listings}
+\lstnewenvironment{hndcode}{\lstset{%
+        basicstyle={\ttfamily},%
+        identifierstyle={\small},%
+        commentstyle={\smallitshape},%
+        keywordstyle={\small\bfseries},%
+        ndkeywordstyle={\small},%
+        stringstyle={\small\ttfamily},%
+        frame={tb},%
+        breaklines=true,%
+        columns=[l]{fullflexible},%
+        numbers=left,%
+        xrightmargin=0zw,%
+        xleftmargin=3zw,%
+        numberstyle={\scriptsize},%
+        stepnumber=1,%
+        numbersep=1zw,%
+        lineskip=-0.5ex
+    }}{}
+%
+
+\newcommand\hndcodecaption[1]{
+    \begin{center}
+        #1 \vspace{-1zw}
+    \end{center}
+}
+
+
+
+%
+% EOF
+%

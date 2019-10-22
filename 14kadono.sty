@@ -1,0 +1,42 @@
+%
+%      KADONO
+%
+% This file is "vuccaken.sty"
+% 2018/11/14 16:00 
+% created by nakayama
+%
+% 2018/11/16 17:00 edited by nkym
+
+
+% kadono 01
+\usepackage{amsmath,amssymb,cases}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{here}
+\usepackage{url}
+\usepackage{listings,jlisting}
+
+% 話すと長くなりますが、ソースコード中の日本語の設定だと思ってください。
+\lstset{%
+  columns=[l]{fullflexible}%
+}
+
+% 文中の1行コード
+% 複数行のソースコードと同じく四角で囲ってもいいと思いますが、一応別に作りました。
+\lstnewenvironment{kdncode-i}{\lstset{basicstyle=\ttfamily\small}}{}
+\lstnewenvironment{kdncode-ii}{\lstset{%
+    basicstyle=\ttfamily\footnotesize, frame=single}%
+}{}
+
+% 文中でのコード。htmlの<code>タグ的な。
+\newcommand{\tkdncode}[1]{{\ttfamily #1}}
+
+
+%kadono 02
+\usepackage{physics}
+\usepackage{braket}
+
+
+
+%
+% EOF
+%

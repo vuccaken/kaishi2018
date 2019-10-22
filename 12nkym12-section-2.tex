@@ -1,0 +1,353 @@
+%
+%   section 2
+%
+%   2018/11/26
+
+\documentclass[11pt,b5paper,papersize,dvipdfmx]{jsbook}
+
+\usepackage{vuccaken}
+\usepackage{vuccaken2018}
+\usepackage{12nkym}
+
+
+\begin{document}
+
+
+% - - - - - - - - - - - - -
+\section{複素関数についての一般教養} 
+\label{sec:2}
+% - - - - - - - - - - - - -
+
+これからは、定義域や値域を複素数の範囲にまで拡張した複素関数について考えていく。
+複素関数についても微分や積分を定義できるのだが、実数のときとは少しわけが違う。しかしそのおかげで色々とご利益もある。複素関数の微分可能性は実数の時よりも格段と強い制約となり、一致の定理が使えるまでになる。
+また、実数の範囲では手も足もでなかった実関数の定積分が、積分路を複素平面にまで延長し、留数という概念を用いることで簡単に計算できるようになることもある。\par
+% また、留数という概念を用いることで積分値を簡単に求めることができる。実数の範囲では手も足もでなかった定積分が、積分路を複素平面にまで延長することで簡単に計算できることもある。\par
+純粋な数学として非常に興味深い分野というだけでなく、物理などへの応用もかなりあるという、知らないと人生の半分は損してしまうというのが、複素解析学という理論体系である。しかしあくまで今回のメインはゼータ関数であるので、ここでは後で必要になる定理をいくつか述べるに留めておく。証明もいくつかは載せてはいるが、ないものについては参考文献に書いた本などを各自参照していただきたい。\par
+それではまず、基本的な用語から定義していく。
+
+% - - - - - - - - - - -
+\subsection{複素関数}
+% - - - - - - - - - - -
+
+\begin{thm}{定義}
+  複素平面上のある領域内の任意の$z$において、複素関数$f(z)$が微分可能であるとき、$f(z)$はその領域で正則であるという。\par
+  また、正則でない点を特異点と呼ぶ。特に$f(z)=\dfrac1{(z-a)^m}$のような特異点、つまり
+  $$ \lim_{z\to a} (z-a)^m f(z) $$
+  の極限値が存在する特異点を$m$位の極と呼び、$m$は位数と呼ばれる。1位の極は単純極とも呼ばれる。
+\end{thm}
+
+\begin{thm}{定義（複素線積分）}
+  $f(t)$はある領域$D$で定義された連続関数とする。そして$C$は、$D$に含まれる$\alpha$から$\beta$に至る曲線であって、方程式
+  \begin{align*}
+    z = \phi(t)\quad (t\in[a,b]\subset\mathbb{R},\, \alpha=\phi(a),\, \beta=\phi(b))
+  \end{align*}
+  で表されているとする。$C$が滑らかな曲線の場合、曲線$C$に沿う$f(z)$の積分は、次のように実関数の積分を通じて定義する：
+  \begin{align*}
+    \int_C f(z) \dd{z} &:= \int_a^b f(\phi(t)) \phi'(t) \dd{t}\\
+    &\equiv \int_a^b \Re[f(\phi(t)) \phi'(t)] \dd{t} + i\int_a^b \Im[f(\phi(t)) \phi'(t)] \dd{t}.
+  \end{align*}
+\end{thm}
+\begin{remark}
+  積分路$C$が閉曲線のとき
+  \begin{align*}
+    \oint_C f(z) \dd{z}
+  \end{align*}
+  とも書く。
+\end{remark}
+
+\begin{thm}{定理（ローラン展開）}
+  関数$f(z)$が円環領域$D = \qty{ z\ttb R_1<|z-a|<R_2 } \quad (0\le R_1<R_2\le\infty)$において正則ならば、$f(z)$は次の形の級数に展開できる。
+  \begin{align*}
+    f(x) = \sum_{n=-\infty}^\infty c_n (z-a)^n,\quad
+    c_n := \frac1{2\pi i} \oint_C \frac{f(\zeta)}{(\zeta-a)^{n+1}} \dd{\zeta}.
+  \end{align*}
+  この級数は$D$内のすべての$z$に対して収束する。ただし、積分路$C$は$D$内の任意の単純閉曲線（＝自分自身と交わらない閉曲線）である。\par
+  また、この級数を$f(z)$の$z=a$まわりのローラン展開と呼ぶ。
+\end{thm}
+\begin{remark}
+  ローラン展開は、テイラー展開の負ベキの項ありバージョンだと思っておけば良い。
+\end{remark}
+
+\begin{thm}{定義（留数）}
+  上のローラン展開において、$c_{-1}$すなわち$(z-a)^{-1}$の係数を$f(z)$の$z=a$における留数と呼び、$\Res_{z=a}[f]$という記号で表す。
+  \begin{align*}
+    \Res_{z=a}[f] := c_{-1} = \frac1{2\pi i} \oint_C f(z) \dd{z}
+  \end{align*}
+\end{thm}
+
+\begin{thm}{定理（留数の求め方）}
+  $z=a$が$n$位の極であるとき
+  \begin{align*}
+    \Res_{z=a}[f] = \frac1{(n-1)!} \lim_{z\to a} \dv[n-1]{z} \qty{ (z-a)^n f(z) }
+  \end{align*}
+  が成り立つ。特に単純極のとき
+  \begin{align*}
+    \Res_{z=a}[f] = \lim_{z\to a} (z-a)f(z)
+  \end{align*}
+  である。
+\end{thm}
+\begin{prf}
+  留数の定義よりわかる。
+\end{prf}
+
+\begin{thm}{定理（留数定理）}
+  $f(z)$は、単純閉曲線$C$の内部に有限個の特異点$z=a_n \quad (n=1,2,\cdots,m)$を持つが、それらを除けば周上も含めて$C$の内部で正則であるとする。このとき
+  \begin{align*}
+    \oint_C f(z) \dd{z} = 2\pi i \sum_{n=1}^m \Res_{z=a_n}[f]
+  \end{align*}
+  が成り立つ。
+\end{thm}
+\begin{prf}
+  留数の定義よりわかる。
+\end{prf}
+
+
+
+% - - - - - - - - - - - - - -
+\subsection{無限級数、無限積}
+\label{sec:mugen}
+% - - - - - - - - - - - - - -
+
+
+単に収束と言っても収束の仕方はいろいろある。ここでは一様収束という概念が重要になってくる。
+\begin{thm}{定義（一様収束）}
+  任意の$\epsilon>0$に対して自然数$n_0(\varepsilon)$を適当に選べば、$n \ge n_0(\varepsilon)$なるすべての$n$に対して、複素平面の部分集合$E$において$z$に無関係に
+  \begin{align*}
+    |f_n(z) - f(z)| < \varepsilon
+  \end{align*}
+  が成り立つとする。このとき、$E$において$f_n(z)$は$f(z)$に一様収束するという。
+\end{thm}
+\begin{remark}
+  一様収束では、$n_0$を$z$に依存せず選べることが重要である。\par
+  また、上記の定義は数学の言葉では
+  \begin{align*}
+    \forall \varepsilon,\,\, \exists n_0
+    \st n>n_0 \,\Rightarrow\,
+    |f_n(z) - f(z)| < \varepsilon\,\, (\forall z \in E)
+  \end{align*}
+  と書かれる。
+\end{remark}
+
+関数列の極限としての関数が正則であることを言うためには、一様収束という条件が必要になってくるのだが、実際はそれよりも少しゆるい条件、すなわち広義一様収束が言えれば十分である。
+\begin{thm}{定義（広義一様収束）}
+  領域$D$に含まれる任意の有界集合$K$で$f_n(z)$が$f(z)$に一様収束するとき、$f_n(z)$は$D$で広義一様収束するという。
+\end{thm}
+\begin{remark}
+  上にも書いたが、広義一様収束は一様収束よりもゆるい条件であり、一様収束するならば広義一様収束する。
+\end{remark}
+
+\begin{thm}{定理}
+  関数$f_n(z)$は領域$D$で正則であるとする。$D$において$f_n(z)$が$f(z)$に広義一様収束するならば、$f(z)$は$D$で正則である。また、$k$階導関数$f^{(k)}_n(z)$は$f^{(k)}(z)$に広義一様収束する。
+\end{thm}
+
+%
+\begin{thm}{定義}
+  積$\dprod_{n=1}^N a_n$が$N\to\infty$のとき$0$でない有限の値になるとき、無限積$\dprod_{n=1}^\infty a_n$は収束するという。収束しない場合、発散するという。
+\end{thm}
+%
+\begin{remark}
+  無限積においては極限値が$0$となる場合を収束に含めず、発散とすることに注意が必要である
+  \footnote{
+    細かいことを言うと、$a_n=0$となる項が有限個の場合、無限積は$0$に収束すると定義するのが主流らしい。ただしこの定義においても、$a_n=0$となる項が無限個ある場合は、無限積は$0$に発散するという。極限値が$0$であっても収束・発散のどちらの場合もあり得るのでややこしい。
+  }。
+  無限積の収束の定義から$0$を除外する理由は、以降の定理で見られるような指数・対数写像による無限積と無限和との対応づけにおいて、収束概念どうしも対応づけられるようにするためである。仮に無限積が$0$に収束することを認めてしまうと
+  $$% \begin{align*}
+    \text{無限和} = \log\! \text{（無限積）}
+  $$% \end{align*}
+  の対応で無限和が$-\infty$に発散する場合に無限積だけが収束することになってしまう。無限積の収束の定義において$0$を除外することによって、無限積と無限和の収束性が同値となるのである。
+\end{remark}
+
+%
+\begin{thm}{定理}
+  無限積$\dprod_{n=1}^\infty (1+a_n)$が収束するための必要十分条件は、
+  $\dsum_{n=1}^\infty \log (1+a_n) $が収束することである。
+\end{thm}
+\begin{prf}
+  無限和の収束を仮定し、その値を$S$とすると
+  \begin{align*}
+    \prod_{n=1}^\infty (1+a_n)
+    &= \lim_{N\to\infty} \prod_{n=1}^N (1+a_n)\\
+    &= \lim_{N\to\infty} \exp\qty( \log \prod_{n=1}^N (1+a_n) )\\
+    &= \exp\qty( \lim_{N\to\infty} \sum_{n=1}^N \log (1+a_n) )\\
+    &= e^S
+  \end{align*}
+  となるので無限積も収束する。逆に、無限積の収束を仮定し、その値を$P$とする。
+  \begin{align*}
+    S_N := \sum_{n=1}^\infty \log (1+a_n),\quad
+    P_N := \prod_{n=1}^\infty (1+a_n)
+  \end{align*}
+  と書けば、$ S_N = \log P_N $であるから
+  \footnote{
+    実はこの式は自明でない。何故ならば、$\log P_N$は主値であるから$ -\pi < \Im\log P_N \le \pi $を満たすが、$S_N$が$ -\pi < \Im S_N \le \pi $を満たすとは限らないからである。一般にそのずれを考慮すると、$k_N$を整数として
+    \begin{align*}
+      \log P_N = S_N + 2\pi ik_N
+    \end{align*}
+    と書ける。$N\to\infty$で$k_N$が収束することを示せば良いのだが、面倒なのでここではやらない。
+  }、
+  $N\to\infty$とすると
+  \begin{align*}
+    \lim_{N\to\infty} S_N = \log P
+  \end{align*}
+  となり、無限和も収束する。
+\end{prf}
+
+無限積の絶対収束を以下のように定義する。
+\begin{thm}{定義}
+  無限積$\dprod_{n=1}^\infty (1+a_n)$が絶対収束するとは、$\dprod_{n=1}^\infty (1+|a_n|)$が収束することをいう。
+\end{thm}
+\begin{remark}
+  $\dprod_{n=1}^\infty |1+a_n|$ではないことに注意。
+\end{remark}
+
+\begin{thm}{定理}
+  無限積$\dprod_{n=1}^\infty (1+a_n)$が絶対収束するための必要十分条件は、$\dsum_{n=1}^\infty a_n$が絶対収束することである。すなわち
+  \begin{align*}
+    \prod_{n=1}^\infty (1+|a_n|) \text{が収束} 
+    \iff \sum_{n=1}^\infty |a_n| \text{が収束}
+  \end{align*}
+\end{thm}
+\begin{prf}
+  \begin{align*}
+    A_N = \sum_{n=1}^N |a_n|, \quad
+    B_N = \prod_{n=1}^N (1+|a_n|)
+  \end{align*}
+  とおく。$B_N$を展開すると
+  \begin{align*}
+    B_N &= 1 + \sum_{n=1}^N |a_n| + \sum_{1\le i < j\le N}|a_i||a_j|
+    + \sum_{1\le i < j < k\le N}|a_i||a_j||a_k| + \cdots\\
+    &\ge 1 + \sum_{n=1}^N |a_n| = 1 + A_N
+  \end{align*}
+  となる。また、指数関数のテイラー展開より
+  \begin{align*}
+    \exp |a_n| = 1 + |a_n| + \frac{|a_n|^2}{2} + \cdots
+    \ge 1 + |a_n|
+  \end{align*}
+  であるので
+  \begin{align*}
+    B_N \le \prod_{n=1}^N \exp |a_n| 
+    = \exp\qty(\sum_{n=1}^N |a_n|) = \exp A_N
+  \end{align*}
+  となる。よって
+  \begin{align*}
+    1 + A_N \le B_N \le \exp A_N
+  \end{align*}
+  であり、$A_N, B_N$は共に増加列であることから$\lim\limits_{N\to\infty}A_N$と$\displaystyle\lim_{N\to\infty}B_N$の収束性は一致する。
+\end{prf}
+
+\begin{thm}{定理}
+  無限積は、絶対収束すれば収束する。すなわち、無限和$\dsum_{n=1}^\infty |a_n|$が収束すれば、無限積$\dprod_{n=1}^\infty (1+a_n)$は収束する。
+\end{thm}
+\begin{remark}
+  無限和についても同様のことが言える。つまり、絶対収束する無限和は収束する。また、$a_n$は一般に複素数を仮定している。
+\end{remark}
+
+\begin{thm}{定理}
+  絶対収束する無限積は、積の順序を変更しても無限積の値は変わらない。
+\end{thm}
+\begin{remark}
+  無限和についても同様のことが言える。
+\end{remark}
+
+\begin{thm}{定理（二重和の交換）}
+  二重和$\dsum_{m=1}^\infty \dsum_{n=1}^\infty |a_{n,m}|$は、
+  収束するならば$n$についての和と$m$についての和の順序を入れ替えても良い。
+\end{thm}
+% \begin{thm}{定理（二重和の交換）}
+%   二つの添字を持つ複素数列
+%   $$ \qty{ a_{n,m} \in \mathbb{C} \ttb n=1,2,3,\cdots,\, m=1,2,3,\cdots } $$
+%   に対し、極限値
+%   \begin{align*}
+%     \lim_{M\to\infty} \lim_{N\to\infty}
+%     \sum_{n=1}^N \sum_{m=1}^M |a_{n,m}|
+%   \end{align*}
+%   が存在するとき、二重級数の二通りの極限
+%   \begin{align*}
+%     \sum_{n=1}^\infty \qty( \sum_{m=1}^\infty |a_{n,m}| ),\quad
+%     \sum_{m=1}^\infty \qty( \sum_{n=1}^\infty |a_{n,m}| )
+%   \end{align*}
+%   は同一の極限値に収束する。つまり、二重和の交換が可能。
+% \end{thm}
+
+
+% - - - - - - - - - - -
+\subsection{その他有用な定理}
+% - - - - - - - - - - -
+
+\begin{thm}{定理（三角不等式）}
+  複素数$A,B$について、以下の不等号が成立する。
+  \begin{align}
+    |A+B| \le |A|+|B|, \label{eq:A+B}\\
+    |A|-|B| \le |A-B|. \label{eq:A-B}
+  \end{align}
+  また、$|C|>|D|$であれば
+  \begin{align}
+    \frac{|A+B|}{|C+D|} \le \frac{|A|+|B|}{|C|-|D|}
+    \label{eq:A+B/A-B}
+  \end{align}
+  が成り立つ。
+\end{thm}
+\begin{prf}
+  まず(\ref{eq:A+B})式を示す。両辺正であるから$(|A|+|B|)^2 - |A+B|^2 \ge 0$を示せばよい。$a_1,a_2,b_1,b_2 \in \mathbb{R}$を用いて$A=a_1+ia_2, B=b_1+ib_2$と書けるとすると
+  \begin{align*}
+    (|A|+|B|)^2 - |A+B|^2
+    &= |A|^2 + 2|A||B| + |B|^2 - |A+B|^2\\
+    &= a_1^2+a_2^2 + 2|A||B| + b_1^2+b_2^2 \\
+      &\qquad\qquad - \qty{(a_1+b_1)^2 + (a_2+b_2)^2}\\
+    &= 2|A||B| - (2a_1b_1 + 2a_2b_2)
+  \end{align*}
+  ここで複素数$A,B$を複素数平面上のベクトルだと思い、それらのなす角を$\theta$とすると、内積の定義から
+  \begin{align*}
+    a_1b_1+a_2b_2 = |A||B|\cos\theta \le |A||B|
+  \end{align*}
+  である。よって
+  \begin{align*}
+    (|A|+|B|)^2 - |A+B|^2 \ge 0
+  \end{align*}
+  すなわち(\ref{eq:A+B})式が示された。また(\ref{eq:A+B})式において$A \to A-B$と置き換えれば(\ref{eq:A+B})式が得られる。さらに、$|C|>|D|$であれば
+  \begin{align*}
+    \frac{|A+B|}{|C+D|} = \frac{|A+B|}{|C-(-D)|} \le \frac{|A|+|B|}{|C|-|D|}
+  \end{align*}
+  であり、(\ref{eq:A+B/A-B})式も従う。
+\end{prf}
+%
+\begin{remark}
+  次の定理と合わせて、複素積分の絶対値を上から抑える際に用いる。
+\end{remark}
+
+\begin{thm}{定理}
+  複素積分においても、一般に次の不等式が成立する。
+  \begin{align}
+    \qty| \int_C f(z) \dd{z} | \le \int_C |f(z)| |\dd z|
+  \end{align}
+\end{thm}
+
+
+%  - - - - - - - - - - - - - - -
+
+% \begin{thm}{定義（関数項級数の収束）}
+%   $z$平面の領域$D$において関数列${f_k(z)}$が与えられているとき、そのおのおのを項とする関数項級数
+%   \begin{align}
+%     \sum_{k=1}^\infty f_k(z)
+%     \label{eq:kansukokyusu}
+%   \end{align}
+%   を考える。この級数の第$n$部分和を
+%   \begin{align*}
+%     S_n(z) := \sum_{k=1}^n f_k(z) \quad (n=1,2,3,\cdots)
+%   \end{align*}
+%   と書く。部分和のなす関数列${S_n(z)}$が収束するとき、
+%   級数$\dsum_{k=1}^\infty f_k(z)$は収束するといい、
+%   \begin{align}
+%     S(z) := \sum_{k=1}^\infty f_k(z)
+%     \label{eq:kansuko-bubunwa}
+%   \end{align}
+%   をこの級数の和と呼ぶ。そして、部分和(\ref{eq:kansuko-bubunwa})の収束が各点収束、一様収束、広義一様収束であるのに応じて、関数項級数(\ref{eq:kansukokyusu})は各点収束、一様収束、広義一様収束するという。
+% \end{thm}
+
+
+
+
+
+
+
+% = = = = = = = = = = =
+\end{document}

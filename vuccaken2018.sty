@@ -1,0 +1,64 @@
+%
+% This file is "vuccaken.sty"
+% 2018/11/14 16:00 
+% created by nakayama
+%
+
+% 2018/11/16 17:00 edited by nkym
+% 2018/11/20 19:30 edited by nkym
+
+\newcommand\nsmr{西村宗悟}
+
+% 共通
+\setcounter{tocdepth}{2} % 目次にどこまで表示するか
+% 参考文献は enumerate 環境で出す。
+\newcommand\sanko{%
+    \addcontentsline{toc}{section}{参考文献}
+    \section*{参考文献}
+    % enumerate 環境の設定
+    \renewcommand{\labelenumi}{[\arabic{enumi}]}
+    }
+%
+
+% 表紙
+\usepackage[T1]{fontenc} % フォントサイズ限界突破
+\usepackage{lmodern}
+
+% 巻頭言・編集後記
+% \kantogon{学部}{名前}{日付}
+\newenvironment{kantogon}[3]%
+  {%
+    % \addcontentsline{toc}{chapter}{\vspace{2zw}\\\hspace{-3.9zw}巻頭言}%
+    \addcontentsline{toc}{chapter}{巻頭言}%
+    \section*{巻頭言}%
+    \def\kantogonsyozoku{#1}%
+    \def\kantogonname{#2}%
+    \def\kantogondate{#3}%
+  }{%
+    \begin{flushright}%
+      \kantogondate\\
+      \kantogonsyozoku\hspace{0.5zw}\kantogonname%
+    \end{flushright}\par%
+  }
+%
+
+% \hensyukoki{学部}{名前}{日付}
+\newenvironment{hensyukoki}[3]%
+  {%
+    \addcontentsline{toc}{chapter}{編集後記}%
+    \section*{編集後記}%
+    \def\hensyukokisyozoku{#1}%
+    \def\hensyukokiname{#2}%
+    \def\hensyukokidate{#3}%
+  }{%
+    \begin{flushright}%
+      \hensyukokidate\\
+      \hensyukokisyozoku\hspace{0.5zw}\hensyukokiname%
+    \end{flushright}\par%
+  }
+%
+
+
+%
+% EOF
+%

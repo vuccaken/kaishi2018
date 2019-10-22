@@ -1,0 +1,37 @@
+%
+%    niSHImura
+%
+
+% This file is "11nsmr.sty"
+% 2018/11/14 16:00 
+% created by nakayama
+%
+
+% 2018/11/16 17:00 remaked
+% 2018/11/24 16:50
+
+
+\usepackage{amsmath,amssymb,cases}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{here}
+\usepackage{url}
+\usepackage{ascmac}
+\usepackage{physics}
+% \usepackage{comment}
+\usepackage{mathtools} % dcases env
+
+
+% define tani command
+\makeatletter % open at mark
+  \newcommand\tani{\@ifstar\stani\nstani}
+\makeatother % close at mark
+\newcommand\nstani[1]{\,\mathrm{#1}}
+\newcommand\stani[1]{\,\mathrm{[#1]}}
+
+% 数式番号付加
+\def\atag{\refstepcounter{equation}\tag{\theequation}}
+
+
+%
+% EOF
+%

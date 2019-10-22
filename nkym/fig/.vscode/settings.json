@@ -1,0 +1,56 @@
+{
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-e",
+        "$latex=q/platex %O -synctex=0 -interaction=nonstopmode -file-line-error -halt-on-error -shell-escape %S/",
+        "-e",
+        "$bibtex=q/pbibtex %O %B/",
+        "-e",
+        "$biber=q/biber %O --bblencoding=utf8 -u -U --output_safechars %B/",
+        "-e",
+        "$makeindex=q/pmendex %O -o %D %S/",
+        "-e",
+        "$dvipdf=q/dvipdfmx %O -o %D %S/",
+        "-norc",
+        "-pdfdvi",
+        "%DOC%"
+      ]
+    }
+  ],
+  "workbench.statusBar.feedback.visible": false,
+  "workbench.startupEditor": "newUntitledFile",
+  "python.linting.enabled": false,
+  "window.zoomLevel": 1,
+  "latex-workshop.message.update.show": false,
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "latex-workshop.latex.clean.enabled": true,
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux",
+    "*.bbl",
+    "*.blg",
+    "*.idx",
+    "*.ind",
+    "*.lof",
+    "*.lot",
+    "*.out",
+    "*.toc",
+    "*.acn",
+    "*.acr",
+    "*.alg",
+    "*.glg",
+    "*.glo",
+    "*.gls",
+    "*.ist",
+    "*.fls",
+    "*.log",
+    "*.fdb_latexmk",
+    "*.dvi",
+    // "*.synctex.gz"
+  ],
+  "latex-workshop.view.pdf.viewer": "tab",
+  "fortran.linterEnabled": false,
+}
